@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Validacao {
     public static boolean validarNome(String nome){
-        if(nome != null && nome.length() >= 3){
+        if(nome != null && nome.length() >= 3 && !nome.isBlank()){
             return true;
         }
         return false;

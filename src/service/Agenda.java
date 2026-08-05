@@ -54,7 +54,7 @@ public class Agenda {
             }
             return contatosEncontrados;
         }
-        return null;
+        return List.of();
     }
 
 
