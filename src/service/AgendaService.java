@@ -5,7 +5,7 @@ import entities.ContatoTelefonico;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Agenda {
+public class AgendaService {
     private final List<Contato> listaContatos = new ArrayList<>();
 
     public List<Contato> getListaContatos() {

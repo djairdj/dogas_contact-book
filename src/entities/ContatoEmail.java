@@ -18,7 +18,7 @@ public class ContatoEmail extends Contato{
         if(email != null && Validacao.isValidEmail(email)){
             this.email = email;
         }else{
-            System.out.println("Telefone inválido!");
+            System.out.println("E-mail inválido!");
         }
     }
 

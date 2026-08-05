@@ -16,8 +16,9 @@ public class ContatoTelefonico extends Contato{
     public void setTelefone(String telefone){
         if(telefone != null && Validacao.validarTelefone(telefone)){
             this.telefone = telefone;
+        }else{
+            System.out.println("Telefone inválido!");
         }
-        System.out.println("Telefone inválido!");
     }
 
     public String getTipo(){

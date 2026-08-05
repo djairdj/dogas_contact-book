@@ -2,12 +2,12 @@ import java.util.Scanner;
 import entities.Contato;
 import entities.ContatoEmail;
 import entities.ContatoTelefonico;
-import service.Agenda;
+import service.AgendaService;
 import util.Validacao;
 import java.util.List;
 
 public class Main {
-    private static Agenda agenda = new Agenda();
+    private static AgendaService agenda = new AgendaService();
 
     public static void main(String[] args) {
         int opcao;
