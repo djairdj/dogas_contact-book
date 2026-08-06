@@ -1,7 +1,7 @@
 import entities.Contact;
 import entities.ContactEmail;
 import entities.ContactTelephone;
-import service.Agenda;
+import service.AgendaService;
 import util.Validation;
 
 import java.util.List;

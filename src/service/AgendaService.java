@@ -7,7 +7,7 @@ import entities.ContactTelephone;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Agenda {
+public class AgendaService {
     private final List<Contact> contactList = new ArrayList<>();
 
     public List<Contact> getContactList() {
