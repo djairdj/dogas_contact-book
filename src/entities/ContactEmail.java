@@ -1,11 +1,11 @@
 package entities;
 
-import util.Validacao;
+import util.Validation;
 
-public class ContatoEmail extends Contato {
+public class ContactEmail extends Contact {
     private String email;
 
-    public ContatoEmail(String nome, String email) {
+    public ContactEmail(String nome, String email) {
         super(nome);
         this.email = email;
     }
@@ -15,19 +15,19 @@ public class ContatoEmail extends Contato {
     }
 
     public void setEmail(String email) {
-        if (email != null && Validacao.isValidEmail(email)) {
+        if (email != null && Validation.isValidEmail(email)) {
             this.email = email;
         } else {
             System.out.println("Email inválido!");
         }
     }
 
-    public String getTipo() {
+    public String getType() {
         return "Email";
     }
 
     @Override
     public String toString() {
-        return String.format(" %d | %s | %s: %s", getID(), getNome(), getTipo(), getEmail());
+        return String.format(" %d | %s | %s: %s", getID(), getName(), getType(), getEmail());
     }
 }
