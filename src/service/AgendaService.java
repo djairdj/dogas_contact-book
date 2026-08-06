@@ -1,109 +1,106 @@
 package service;
-import entities.Contato;
-import entities.ContatoEmail;
-import entities.ContatoTelefonico;
-import java.util.List;
+
+import entities.Contact;
+import entities.ContactEmail;
+import entities.ContactTelephone;
+
 import java.util.ArrayList;
+import java.util.List;
 
-public class AgendaService {
-    private final List<Contato> listaContatos = new ArrayList<>();
+public class Agenda {
+    private final List<Contact> contactList = new ArrayList<>();
 
-    public List<Contato> getListaContatos() {
-        return listaContatos;
+    public List<Contact> getContactList() {
+        return contactList;
     }
 
-    public void relatorioContatos() {
-        int totalTelefone = 0;
+    public void reportContacts() {
+        int totalTelephone = 0;
         int totalEmail = 0;
 
-        for (Contato contato : listaContatos) {
-            if (contato instanceof ContatoTelefonico) {
-                totalTelefone++;
+        for (Contact contact : contactList) {
+            if (contact instanceof ContactTelephone) {
+                totalTelephone++;
             }
-            if (contato instanceof ContatoEmail) {
+            if (contact instanceof ContactEmail) {
                 totalEmail++;
             }
         }
         System.out.println("=== RELATÓRIO DE CONTATOS ===");
-        System.out.println("Total de Contatos: " + listaContatos.size());
-        System.out.println("Total de contatos com telefone: " + totalTelefone);
+        System.out.println("Total de Contatos: " + contactList.size());
+        System.out.println("Total de contatos com telefone: " + totalTelephone);
         System.out.println("Total de contatos com email: " + totalEmail);
     }
 
-    public void cadastrarContato(Contato contato) {
-        listaContatos.add(contato);
+    public void registerContact(Contact contact) {
+        contactList.add(contact);
     }
 
-    public void listarContatos() {
-        if (!listaContatos.isEmpty()) {
-            for (Contato contato : listaContatos) {
-                System.out.println(contato);
+    public void listContacts() {
+        if (!contactList.isEmpty()) {
+            for (Contact contact : contactList) {
+                System.out.println(contact);
             }
         } else {
             System.out.println("Nenhum contato cadastrado!");
         }
     }
 
-    public List<Contato> buscarContatosPorNome(List<Contato> listaContatos, String nome){
-        if(!listaContatos.isEmpty()){
-            List<Contato> contatosEncontrados = new ArrayList<>();
-            for(Contato contato : listaContatos){
-                if(contato.getNome() != null && contato.getNome().equalsIgnoreCase(nome)){
-                    contatosEncontrados.add(contato);
+    public List<Contact> findContactsByName(List<Contact> contactList, String nome) {
+        if (!contactList.isEmpty()) {
+            List<Contact> contactsFound = new ArrayList<>();
+            for (Contact contact : contactList) {
+                if (contact.getName() != null && contact.getName().equalsIgnoreCase(nome)) {
+                    contactsFound.add(contact);
                 }
             }
-            return contatosEncontrados;
+            return contactsFound;
         }
         return List.of();
     }
 
 
-    public Contato buscarContatoEncontradoPorId(List<Contato> contatosEncontrados, int id){
-        if(!contatosEncontrados.isEmpty()){
-            for(Contato contato : contatosEncontrados){
-                if(contato.getID() == id){
-                    return contato;
+    public Contact findContactFoundById(List<Contact> contatosEncontrados, int id) {
+        if (!contatosEncontrados.isEmpty()) {
+            for (Contact contact : contatosEncontrados) {
+                if (contact.getID() == id) {
+                    return contact;
                 }
             }
         }
         return null;
     }
 
-    public void modificarContato(Contato contato, int opcao, String novoNome, String novoDado){
-        switch(opcao){
+    public void modifyContact(Contact contact, int opcao, String novoNome, String novoDado) {
+        switch (opcao) {
             case 1:
-                if(novoNome != null && !novoNome.trim().isEmpty()){
-                    contato.setNome(novoNome);
+                if (novoNome != null && !novoNome.trim().isEmpty()) {
+                    contact.setName(novoNome);
                 }
                 break;
             case 2:
-                if(contato instanceof ContatoTelefonico){
-                    ContatoTelefonico contatoTele = (ContatoTelefonico) contato;
-                    contatoTele.setTelefone(novoDado);
-                }else if(contato instanceof ContatoEmail){
-                    ContatoEmail contatoEm = (ContatoEmail) contato;
-                    contatoEm.setEmail(novoDado);
+                if (contact instanceof ContactTelephone contactTelephone) {
+                    contactTelephone.setTelephone(novoDado);
+                } else if (contact instanceof ContactEmail contactEmail) {
+                    contactEmail.setEmail(novoDado);
                 }
                 break;
             case 3:
-                contato.setNome(novoNome);
+                contact.setName(novoNome);
 
-                if(contato instanceof ContatoTelefonico){
-                    ContatoTelefonico contatoTele = (ContatoTelefonico) contato;
-                    contatoTele.setTelefone(novoDado);
-                }else if(contato instanceof ContatoEmail){
-                    ContatoEmail contatoEmail = (ContatoEmail) contato;
-                    contatoEmail.setEmail(novoDado);
+                if (contact instanceof ContactTelephone contactTelephone) {
+                    contactTelephone.setTelephone(novoDado);
+                } else if (contact instanceof ContactEmail contactEmail) {
+                    contactEmail.setEmail(novoDado);
                 }
                 break;
             default:
                 System.out.println("Opção inválida, tente novamente!");
-                return;
         }
     }
 
-    public boolean deletarContato(int id){
-        return listaContatos.removeIf(contato -> contato.getID() == id);
+    public boolean deleteContact(int id) {
+        return contactList.removeIf(contato -> contato.getID() == id);
     }
 }
 
