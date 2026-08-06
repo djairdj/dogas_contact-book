@@ -1,59 +1,64 @@
 package util;
-import entities.Contato;
-import entities.ContatoEmail;
-import entities.ContatoTelefonico;
+
+import entities.Contact;
+import entities.ContactEmail;
+import entities.ContactTelephone;
+
 import java.util.List;
 
-public class Validacao {
-    public static boolean validarNome(String nome){
-        return nome != null && nome.length() >= 3 && !nome.isBlank();
-    }
-
-    public static boolean validarTelefone(String telefone){
-        telefone = telefone.replaceAll("\\D", ""); //REMOÇÃO DE TUDO QUE NÃO SEJA DIGITO
-        if(telefone.matches("\\d{10,11}")){
+public class Validation {
+    public static boolean validateName(String nome) {
+        if (nome != null && nome.length() >= 3) {
             return true;
         }
         return false;
     }
 
-    public static String formatarTelefone(String telefone){
-        if(telefone == null){
+    public static boolean validatePhone(String telephone) {
+        telephone = telephone.replaceAll("\\D", ""); //REMOÇÃO DE TUDO QUE NÃO SEJA DIGITO
+        if (telephone.matches("\\d{10,11}")) {
+            return true;
+        }
+        return false;
+    }
+
+    public static String formatTelephone(String telephone) {
+        if (telephone == null) {
             throw new IllegalArgumentException("Telefone inválido");
 
         }
-        telefone = telefone.replaceAll("\\D", "");
+        telephone = telephone.replaceAll("\\D", "");
 
-        if (telefone.length() != 10 && telefone.length() != 11){
+        if (telephone.length() != 10 && telephone.length() != 11) {
             throw new IllegalArgumentException("Telefone inválido");
         }
 
-        String ddd = telefone.substring(0, 2);
-        String sufix = telefone.substring(2);
-        if(telefone.length() == 10){
+        String ddd = telephone.substring(0, 2);
+        String sufix = telephone.substring(2);
+        if (telephone.length() == 10) {
             sufix = "9" + sufix;
         }
 
-        telefone = String.format("(%s) %s-%s", ddd, sufix.substring(0, 5), sufix.substring(5)); //DDD, NONO DIGITO, PRIMEIRO SUFIXO, SEGUNDO SUFIXO
-        return telefone;
+        telephone = String.format("(%s) %s-%s", ddd, sufix.substring(0, 5), sufix.substring(5)); //DDD, NONO DIGITO, PRIMEIRO SUFIXO, SEGUNDO SUFIXO
+        return telephone;
     }
 
-    public static boolean telefoneExists(List<Contato> listaContatos, String telefone){
-        for(Contato contato : listaContatos){
-            if(contato instanceof ContatoTelefonico){ //Instanceof verifica se um objeto é de um determinado tipo/classe. "“O objeto guardado em contato é um ContatoTelefone?”
-                ContatoTelefonico contatoTele = (ContatoTelefonico) contato; //transforma o contato abstrato num contato telefonico
-                if(contatoTele.getTelefone().equals(telefone))
+    public static boolean phoneExists(List<Contact> contactList, String telephone) {
+        for (Contact contact : contactList) {
+            if (contact instanceof ContactTelephone) { //Instanceof verifica se um objeto é de um determinado tipo/classe. "“O objeto guardado em contato é um ContatoTelefone?”
+                ContactTelephone contactTelephone = (ContactTelephone) contact; //transforma o contato abstrato num contato telefonico
+                if (contactTelephone.getTelephone().equals(telephone))
                     return true;
             }
         }
         return false;
     }
 
-    public static boolean emailExists(List<Contato> listaContatos, String email){
-        for(Contato contato : listaContatos){
-            if(contato instanceof ContatoEmail){
-                ContatoEmail contatoEm = (ContatoEmail) contato;
-                if(contatoEm.getEmail().equals(email)){
+    public static boolean emailExists(List<Contact> contactList, String email) {
+        for (Contact contact : contactList) {
+            if (contact instanceof ContactEmail) {
+                ContactEmail contactEmail = (ContactEmail) contact;
+                if (contactEmail.getEmail().equals(email)) {
                     return true;
                 }
             }
@@ -61,16 +66,17 @@ public class Validacao {
         return false;
     }
 
-    public static boolean isValidEmail(String email){
+    public static boolean isValidEmail(String email) {
         final String emailPattern = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 
-        if(email.length() > 6) {
+        if (email.length() > 6) {
             if (email.matches(emailPattern)) { //é possível simplificar apenas colocando return email.matches(emailPattern)
                 return true; //matches verifica se a string segue um padrão
             }
         }
         return false;
 
+        // Explicação da regex usada acima
         /*
             PADRÃO ESPERADO DO EMAIL: ^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@ + (?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$
 
@@ -111,7 +117,6 @@ public class Validacao {
             $ = Indica o fim da String.
 
             RESULTADO: Garante que o e-mail termine com uma extensão válida.
-             */
-
+         */
     }
 }
