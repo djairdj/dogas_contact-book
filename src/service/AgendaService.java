@@ -3,6 +3,7 @@ package service;
 import entities.Contact;
 import entities.ContactEmail;
 import entities.ContactTelephone;
+import util.Validation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,27 +72,41 @@ public class AgendaService {
         return null;
     }
 
-    public void modifyContact(Contact contact, int opcao, String novoNome, String novoDado) {
+    public void updateEmail(ContactEmail contactEmail, int opcao, String novoNome, String newEmail){
+        contactEmail.setEmail(newEmail);
+    }
+
+    public void updatePhone(ContactTelephone contactPhone, int opcao, String novoNome, String newPhone){
+        contactPhone.setTelephone(newPhone);
+    }
+
+    public void updateName(String name){
+
+    }
+    public void updateContact(Contact contact, int opcao, String newName, String newData) {
         switch (opcao) {
             case 1:
-                if (novoNome != null && !novoNome.trim().isEmpty()) {
-                    contact.setName(novoNome);
+                if(Validation.validateName(newName)){
+                    contact.setName(newName);
                 }
-                break;
             case 2:
+                if(contact instanceof ContactTelephone contactTelephone){
+                    updatePhone(contactTelephone, opcao, newName, newData);
+                }
+
                 if (contact instanceof ContactTelephone contactTelephone) {
-                    contactTelephone.setTelephone(novoDado);
+                    contactTelephone.setTelephone(newData);
                 } else if (contact instanceof ContactEmail contactEmail) {
-                    contactEmail.setEmail(novoDado);
+                    contactEmail.setEmail(newData);
                 }
                 break;
             case 3:
-                contact.setName(novoNome);
+                contact.setName(newData);
 
                 if (contact instanceof ContactTelephone contactTelephone) {
-                    contactTelephone.setTelephone(novoDado);
+                    contactTelephone.setTelephone(newData);
                 } else if (contact instanceof ContactEmail contactEmail) {
-                    contactEmail.setEmail(novoDado);
+                    contactEmail.setEmail(newData);
                 }
                 break;
             default:

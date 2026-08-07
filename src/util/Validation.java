@@ -7,11 +7,8 @@ import entities.ContactTelephone;
 import java.util.List;
 
 public class Validation {
-    public static boolean validateName(String nome) {
-        if (nome != null && nome.length() >= 3) {
-            return true;
-        }
-        return false;
+    public static boolean validateName(String name) {
+        return name != null && name.length() >= 3;
     }
 
     public static boolean validatePhone(String telephone) {

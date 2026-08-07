@@ -37,24 +37,12 @@ public class Main {
 
     public static void processOption(int opcao, Scanner userInput) {
         switch (opcao) {
-            case 1:
-                displayRegistration(userInput);
-                break;
-            case 2:
-                displayContacts();
-                break;
-            case 3:
-                displayReport();
-                break;
-            case 4:
-                findContact(userInput);
-                break;
-            case 5:
-                showModifyContact(userInput);
-                break;
-            case 6:
-                displayDeleteContact(userInput);
-                break;
+            case 1 -> displayRegistration(userInput);
+            case 2 -> displayContacts();
+            case 3 -> displayReport();
+            case 4 -> findContact(userInput);
+            case 5 -> showModifyContact(userInput);
+            case 6 -> displayDeleteContact(userInput);
         }
     }
 
@@ -69,36 +57,40 @@ public class Main {
         Contact contact;
 
         System.out.println("Tipo de Contato -- [1] Telefone [2] E-mail");
-        int type = Integer.parseInt(userInput.nextLine());
-        if (type == 1) {
-            System.out.print("Telefone: ");
-            String telephone = userInput.nextLine();
-            while (!Validation.validatePhone(telephone)) {
-                System.out.println("Número inválido! Tente novamente: ");
-                telephone = userInput.nextLine();
-            }
-            while (Validation.phoneExists(agenda.getContactList(), telephone)) {
-                System.out.println("Número de telefone já cadastrado! Tente novamente: ");
-                telephone = userInput.nextLine();
-            }
-            contact = new ContactTelephone(name, telephone);
+        try{
+            int type = Integer.parseInt(userInput.nextLine());
+            if (type == 1) {
+                System.out.print("Telefone: ");
+                String telephone = userInput.nextLine();
+                while (!Validation.validatePhone(telephone)) {
+                    System.out.println("Número inválido! Tente novamente: ");
+                    telephone = userInput.nextLine();
+                }
+                while (Validation.phoneExists(agenda.getContactList(), telephone)) {
+                    System.out.println("Número de telefone já cadastrado! Tente novamente: ");
+                    telephone = userInput.nextLine();
+                }
+                contact = new ContactTelephone(name, telephone);
 
-            agenda.registerContact(contact);
-            System.out.print("Contato cadastrado com sucesso!\n\n");
-        } else {
-            System.out.print("E-mail: ");
-            String email = userInput.nextLine();
-            while (!Validation.isValidEmail(email)) {
-                System.out.println("E-mail inválido! Tente novamente: ");
-                email = userInput.nextLine();
+                agenda.registerContact(contact);
+                System.out.print("Contato cadastrado com sucesso!\n\n");
+            } else {
+                System.out.print("E-mail: ");
+                String email = userInput.nextLine();
+                while (!Validation.isValidEmail(email)) {
+                    System.out.println("E-mail inválido! Tente novamente: ");
+                    email = userInput.nextLine();
+                }
+                while (Validation.emailExists(agenda.getContactList(), email)) {
+                    System.out.println("E-mail já cadastrado! Tente novamente:");
+                    email = userInput.nextLine();
+                }
+                contact = new ContactEmail(name, email);
+                agenda.registerContact(contact);
+                System.out.println("Contato de e-mail cadastrado com sucesso!\n\n");
             }
-            while (Validation.emailExists(agenda.getContactList(), email)) {
-                System.out.println("E-mail já cadastrado! Tente novamente:");
-                email = userInput.nextLine();
-            }
-            contact = new ContactEmail(name, email);
-            agenda.registerContact(contact);
-            System.out.println("Contato de e-mail cadastrado com sucesso!\n\n");
+        }catch (NumberFormatException e){
+            System.out.println("Erro de Input: " + e.getMessage());
         }
     }
 
@@ -186,7 +178,7 @@ public class Main {
                 System.out.println("Opção inválida!");
                 return;
         }
-        agenda.modifyContact(contact, option, newName, newData);
+        agenda.updateContact(contact, option, newName, newData);
     }
 
     public static void displayDeleteContact(Scanner userInput) {
