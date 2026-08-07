@@ -80,16 +80,14 @@ public class AgendaService {
         contactPhone.setTelephone(newPhone);
     }
 
-    public void updateName(String name){
-
-    }
     public void updateContact(Contact contact, int opcao, String newName, String newData) {
         switch (opcao) {
-            case 1:
+            case 1 ->{
                 if(Validation.validateName(newName)){
                     contact.setName(newName);
                 }
-            case 2:
+            }
+            case 2 ->{
                 if(contact instanceof ContactTelephone contactTelephone){
                     updatePhone(contactTelephone, opcao, newName, newData);
                 }
@@ -99,18 +97,18 @@ public class AgendaService {
                 } else if (contact instanceof ContactEmail contactEmail) {
                     contactEmail.setEmail(newData);
                 }
-                break;
-            case 3:
+            }
+            case 3 ->{
                 contact.setName(newData);
 
                 if (contact instanceof ContactTelephone contactTelephone) {
                     contactTelephone.setTelephone(newData);
-                } else if (contact instanceof ContactEmail contactEmail) {
+                }else if (contact instanceof ContactEmail contactEmail) {
                     contactEmail.setEmail(newData);
                 }
-                break;
-            default:
-                System.out.println("Opção inválida, tente novamente!");
+            }
+
+            default -> System.out.println("Opção inválida, tente novamente!");
         }
     }
 

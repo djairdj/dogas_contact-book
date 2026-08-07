@@ -22,7 +22,6 @@ public class Validation {
     public static String formatTelephone(String telephone) {
         if (telephone == null) {
             throw new IllegalArgumentException("Telefone inválido");
-
         }
         telephone = telephone.replaceAll("\\D", "");
 
