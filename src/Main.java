@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    private static AgendaService agenda = new AgendaService();
+    private static AgendaService agenda = new AgendaService(); //WARN
 
     public static void main(String[] args) {
         int option;
@@ -72,8 +72,8 @@ public class Main {
                     telephone = userInput.nextLine();
                 }
                 contact = new ContactTelephone(name, telephone);
-
                 agenda.registerContact(contact);
+
                 System.out.print("Contato cadastrado com sucesso!\n\n");
             } else {
                 System.out.print("E-mail: ");
@@ -88,6 +88,7 @@ public class Main {
                 }
                 contact = new ContactEmail(name, email);
                 agenda.registerContact(contact);
+
                 System.out.println("Contato de e-mail cadastrado com sucesso!\n\n");
             }
         }catch (NumberFormatException e){
@@ -142,7 +143,7 @@ public class Main {
             System.out.println("[!] Foram encontrados mais de um contato com o mesmo nome. Insira o ID correspondente para escolher qual modificar: ");
             int id = Integer.parseInt(userInput.nextLine());
 
-            contact = agenda.findContactFoundById(contactsFound, id);
+            contact = agenda.findContactById(contactsFound, id);
 
             if (contact == null) {
                 System.out.println("Contato não encontrado!");
@@ -154,31 +155,38 @@ public class Main {
 
         System.out.println("CONTATO: " + contact);
         System.out.println("[1] Nome \n[2] Dado do contato \n[3] Ambos os dados");
-        int option = Integer.parseInt(userInput.nextLine());
+
+        int option;
+        try{
+            option = Integer.parseInt(userInput.nextLine());
+        }catch (NumberFormatException e){
+            System.out.println("Erro de input: " + e.getMessage());
+            return;
+        }
 
         String newName = null;
         String newData = null;
 
         switch (option) {
-            case 1:
+            case 1 -> {
                 System.out.println("Novo nome: ");
                 newName = userInput.nextLine();
-                break;
-            case 2:
+            }
+            case 2 -> {
                 System.out.println("Novo dado (Telefone ou E-mail): ");
                 newData = userInput.nextLine();
-                break;
-            case 3:
+            }
+            case 3 -> {
                 System.out.println("Novo nome: ");
                 newName = userInput.nextLine();
-
                 System.out.println("Novo dado (Telefone ou E-mail): ");
                 newData = userInput.nextLine();
-                break;
-            default:
+            }
+            default -> {
                 System.out.println("Opção inválida!");
-                return;
+            }
         }
+
         try{
             agenda.updateContact(contact, option, newName, newData);
         }catch(InvalidDataException e){
@@ -210,7 +218,7 @@ public class Main {
             System.out.println("[!] Foram encontrados mais de um contato com esse nome. Insira o ID correspondente para selecionar o contato: ");
             int id = Integer.parseInt(userInput.nextLine());
 
-            contact = agenda.findContactFoundById(contactsFound, id);
+            contact = agenda.findContactById(contactsFound, id);
 
             if (contact == null) {
                 System.out.println("[!] Contato não encontrado");

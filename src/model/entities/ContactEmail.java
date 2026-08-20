@@ -34,6 +34,6 @@ public class ContactEmail extends Contact {
 
     @Override
     public String toString() {
-        return String.format(" %d | %s | %s: %s", getID(), getName(), getType(), getEmail());
+        return String.format(" %d | %s | %s: %s",getID(), getName(), getType(), getEmail());
     }
 }

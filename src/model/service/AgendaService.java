@@ -43,7 +43,7 @@ public class AgendaService {
             for (Contact contact : contactList) {
                 System.out.println(contact);
             }
-        } else {
+        }else{
             System.out.println("Nenhum contato cadastrado!");
         }
     }
@@ -61,8 +61,7 @@ public class AgendaService {
         return List.of();
     }
 
-
-    public Contact findContactFoundById(List<Contact> contatosEncontrados, int id) {
+    public Contact findContactById(List<Contact> contatosEncontrados, int id) {
         if (!contatosEncontrados.isEmpty()) {
             for (Contact contact : contatosEncontrados) {
                 if (contact.getID() == id) {
@@ -73,17 +72,15 @@ public class AgendaService {
         return null;
     }
 
-
     public void updateContact(Contact contact, int opcao, String newName, String newData) throws InvalidDataException{
         switch (opcao) {
-            case 1 ->{
+            case 1 -> {
                 if(!Validation.validateName(newName)){
                     throw new InvalidDataException("Operação cancelada! Nome inválido!");
                 }
                 contact.setName(newName);
             }
             case 2 -> contact.updateData(newData);
-
             case 3 -> {
                 try{
                     if(!Validation.validateName(newName)){

@@ -13,7 +13,7 @@ public class Validation {
 
     public static boolean validatePhone(String telephone) {
         telephone = telephone.replaceAll("\\D", ""); //REMOÇÃO DE TUDO QUE NÃO SEJA DIGITO
-        if (telephone.matches("\\d{10,11}")) {
+        if(telephone.matches("\\d{10,11}")) {
             return true;
         }
         return false;
