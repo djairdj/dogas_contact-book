@@ -8,6 +8,7 @@ import util.Validation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class AgendaService {
     private final List<Contact> contactList = new ArrayList<>();
@@ -40,8 +41,10 @@ public class AgendaService {
 
     public void listContacts() {
         if (!contactList.isEmpty()) {
+            int idPosition = 1;
             for (Contact contact : contactList) {
-                System.out.println(contact);
+                System.out.println(idPosition + " | " + contact);
+                idPosition++;
             }
         }else{
             System.out.println("Nenhum contato cadastrado!");
@@ -61,10 +64,10 @@ public class AgendaService {
         return List.of();
     }
 
-    public Contact findContactById(List<Contact> contatosEncontrados, int id) {
+    public Contact findContactById(List<Contact> contatosEncontrados, UUID id) {
         if (!contatosEncontrados.isEmpty()) {
             for (Contact contact : contatosEncontrados) {
-                if (contact.getID() == id) {
+                if (contact.getID().equals(id)) {
                     return contact;
                 }
             }
@@ -96,7 +99,7 @@ public class AgendaService {
         }
     }
 
-    public boolean deleteContact(int id) {
+    public boolean deleteContact(UUID id) {
         return contactList.removeIf(contact -> contact.getID() == id);
     }
 }

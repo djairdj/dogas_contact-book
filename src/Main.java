@@ -137,13 +137,25 @@ public class Main {
         if (contactsFound.size() == 1) {
             contact = contactsFound.getFirst();
         } else {
-            for (Contact contactFound : contactsFound) {
-                System.out.println(contactFound);
+            for(int i = 0; i < contactsFound.size(); i++){
+                System.out.println((i + 1) + " | " + contactsFound.get(i).getName());
             }
             System.out.println("[!] Foram encontrados mais de um contato com o mesmo nome. Insira o ID correspondente para escolher qual modificar: ");
-            int id = Integer.parseInt(userInput.nextLine());
+            int id;
+            while(true){
+                try{
+                    id = Integer.parseInt(userInput.nextLine());
+                    if(id > contactsFound.size() || id < 1){
+                        System.out.println("ID inválido");
+                    }else{
+                        break;
+                    }
+                }catch (NumberFormatException e){
+                    System.out.println("Erro de input, tente novamente: ");
+                }
+            }
 
-            contact = agenda.findContactById(contactsFound, id);
+            contact = contactsFound.get(id - 1);
 
             if (contact == null) {
                 System.out.println("Contato não encontrado!");
@@ -212,13 +224,25 @@ public class Main {
         if (contactsFound.size() == 1) {
             contact = contactsFound.getFirst();
         } else {
-            for (Contact contactFound : contactsFound) {
-                System.out.println(contactFound);
+            for(int i = 0; i < contactsFound.size(); i++){
+                System.out.println((i + 1) + " | " + contactsFound.get(i).getName());
             }
-            System.out.println("[!] Foram encontrados mais de um contato com esse nome. Insira o ID correspondente para selecionar o contato: ");
-            int id = Integer.parseInt(userInput.nextLine());
+            System.out.print("[!] Foram encontrados mais de um contato com esse nome. Insira o ID correspondente para selecionar o contato: ");
+            int id;
+            while(true){
+                try{
+                    id = Integer.parseInt(userInput.nextLine());
+                    if(id > contactsFound.size() || id < 1){
+                        System.out.println("ID inválido");
+                    }else{
+                        break;
+                    }
+                }catch (NumberFormatException e){
+                    System.out.println("Erro de input, tente novamente: ");
+                }
+            }
 
-            contact = agenda.findContactById(contactsFound, id);
+            contact = contactsFound.get(id - 1);
 
             if (contact == null) {
                 System.out.println("[!] Contato não encontrado");

@@ -33,7 +33,7 @@ public class ContactTelephone extends Contact {
 
     @Override
     public String toString() {
-        return String.format(" %d | %s | %s: %s", getID() , getName(), getType(), getTelephone());
+        return String.format("%s | %s: %s", getName(), getType(), getTelephone());
     }
 
 }

@@ -2,22 +2,23 @@ package model.entities;
 
 import model.exceptions.InvalidDataException;
 
+import java.util.UUID;
+
 abstract public class Contact {
-    private static int counterId = 1;
     private String name;
-    private Integer ID;
+    private final UUID id;
 
     public Contact(String name) {
         this.name = name;
-        this.ID = counterId++;
+        this.id = UUID.randomUUID();
     }
 
     public String getName() {
         return name;
     }
 
-    public Integer getID() {
-        return ID;
+    public UUID getID() {
+        return id;
     }
 
     public void setName(String newName) {
